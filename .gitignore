@@ -6,3 +6,4 @@ settings.yaml
 tokens.json
 .ema-client/
 docs/
+.cursor/

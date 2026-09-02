@@ -48,3 +48,7 @@ Milestone suites: `bun run test:m1` … `test:m6`.
 ## Spec
 
 [docs/PRD-mcp-ema-client.md](docs/PRD-mcp-ema-client.md)
+
+## License
+
+MIT. Copyright (c) 2026 Anoop Garlapati. See [LICENSE](LICENSE).
