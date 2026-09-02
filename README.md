@@ -14,8 +14,10 @@ Local requesting app for Cross App Access / EMA against an MCP server. Configure
 3. Redirect URI must match exactly: `http://localhost:8734/callback`
 4. Connect to the playground MCP resource (`todos.read`, `mcp.access`).
 5. Copy **both** clients from the modal:
-   - Main client ID + secret (OIDC and token exchange)
-   - Resource client `{id}-at-…` + secret (JWT bearer)
+  - Main client ID + secret (OIDC and token exchange)
+  - Resource client `{id}-at-…` + secret (JWT bearer)
+
+
 
 ## Run
 
@@ -44,10 +46,6 @@ bun test
 ```
 
 Milestone suites: `bun run test:m1` … `test:m6`.
-
-## Spec
-
-[docs/PRD-mcp-ema-client.md](docs/PRD-mcp-ema-client.md)
 
 ## License
 
