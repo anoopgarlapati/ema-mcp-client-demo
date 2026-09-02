@@ -29,7 +29,7 @@ bun start
 Open [http://localhost:8734](http://localhost:8734). Playground URLs are pre-filled.
 
 1. Paste client ID, client secret, resource client ID, and resource client secret.
-2. Click **Connect**. An IdenX window should open (any email, any 6-digit code). If it does not, use **Open IdP login**.
+2. Click **Connect**. An IdenX window opens in **this** browser (any email, any 6-digit code). If a popup is blocked, use **Open IdP login**.
 3. After login, the status log should show `login` → `token_exchange` → `jwt_bearer` → `mcp_initialize`.
 4. The MCP panel enables when status is `connected`.
 

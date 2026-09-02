@@ -2,7 +2,6 @@ import { createServer, type IncomingMessage, type ServerResponse } from "node:ht
 import { readFile } from "node:fs/promises";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { dirname, join, resolve } from "node:path";
-import { spawn } from "node:child_process";
 import { AppSession } from "./app.ts";
 import { parseSettings, playgroundDefaults } from "./config.ts";
 import { FileTokenCache } from "./tokenCache.ts";
@@ -12,12 +11,6 @@ const root = dirname(fileURLToPath(import.meta.url));
 const projectRoot = join(root, "..");
 
 const session = new AppSession();
-
-function openBrowser(url: string) {
-  const cmd = process.platform === "darwin" ? "open" : process.platform === "win32" ? "cmd" : "xdg-open";
-  const args = process.platform === "win32" ? ["/c", "start", "", url] : [url];
-  spawn(cmd, args, { stdio: "ignore", detached: true }).unref();
-}
 
 async function handle(req: IncomingMessage, res: ServerResponse) {
   const url = new URL(req.url ?? "/", `http://${req.headers.host}`);
@@ -61,7 +54,6 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
       const cache = new FileTokenCache(settings.tokenCache.path);
       const cached = await cache.load();
       const started = await session.startConnect(settings, body.server || settings.servers[0].name, { cached });
-      if (started.authorizeUrl) openBrowser(started.authorizeUrl);
       if (session.lastOidcTokens && session.status === "connected") await cache.save(session.lastOidcTokens);
       return json(res, { session: session.snapshot(), authorizeUrl: started.authorizeUrl });
     }

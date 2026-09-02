@@ -134,6 +134,7 @@ document.querySelector("#connect").onclick = async () => {
   showError(null);
   persist();
   document.querySelector("#status").textContent = "starting…";
+  const popup = window.open("about:blank", "ema-idp", "width=480,height=720");
   try {
     const settings = collect();
     const data = await api("/api/connect", {
@@ -142,10 +143,14 @@ document.querySelector("#connect").onclick = async () => {
     });
     paintStatus(data.session);
     if (data.authorizeUrl) {
-      window.open(data.authorizeUrl, "ema-idp", "width=480,height=720");
+      if (popup) popup.location = data.authorizeUrl;
+      else window.open(data.authorizeUrl, "ema-idp", "width=480,height=720");
       pollUntilSettled();
+    } else if (popup) {
+      popup.close();
     }
   } catch (e) {
+    if (popup) popup.close();
     document.querySelector("#status").textContent = "disconnected";
     showError(String(e.message || e));
   }
